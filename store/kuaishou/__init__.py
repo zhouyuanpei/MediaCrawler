@@ -5,8 +5,8 @@
 from typing import List
 
 import config
+from var import source_keyword_var
 
-from .kuaishou_store_db_types import *
 from .kuaishou_store_impl import *
 
 
@@ -47,8 +47,10 @@ async def update_kuaishou_video(video_item: Dict):
         "video_url": f"https://www.kuaishou.com/short-video/{video_id}",
         "video_cover_url": photo_info.get("coverUrl", ""),
         "video_play_url": photo_info.get("photoUrl", ""),
+        "source_keyword": source_keyword_var.get(),
     }
-    utils.logger.info(f"[store.kuaishou.update_kuaishou_video] Kuaishou video id:{video_id}, title:{save_content_item.get('title')}")
+    utils.logger.info(
+        f"[store.kuaishou.update_kuaishou_video] Kuaishou video id:{video_id}, title:{save_content_item.get('title')}")
     await KuaishouStoreFactory.create_store().store_content(content_item=save_content_item)
 
 
@@ -73,5 +75,25 @@ async def update_ks_video_comment(video_id: str, comment_item: Dict):
         "sub_comment_count": str(comment_item.get("subCommentCount", 0)),
         "last_modify_ts": utils.get_current_timestamp(),
     }
-    utils.logger.info(f"[store.kuaishou.update_ks_video_comment] Kuaishou video comment: {comment_id}, content: {save_comment_item.get('content')}")
+    utils.logger.info(
+        f"[store.kuaishou.update_ks_video_comment] Kuaishou video comment: {comment_id}, content: {save_comment_item.get('content')}")
     await KuaishouStoreFactory.create_store().store_comment(comment_item=save_comment_item)
+
+async def save_creator(user_id: str, creator: Dict):
+    ownerCount = creator.get('ownerCount', {})
+    profile = creator.get('profile', {})
+
+    local_db_item = {
+        'user_id': user_id,
+        'nickname': profile.get('user_name'),
+        'gender': '女' if profile.get('gender') == "F" else '男',
+        'avatar': profile.get('headurl'),
+        'desc': profile.get('user_text'),
+        'ip_location': "",
+        'follows': ownerCount.get("follow"),
+        'fans': ownerCount.get("fan"),
+        'interaction': ownerCount.get("photo_public"),
+        "last_modify_ts": utils.get_current_timestamp(),
+    }
+    utils.logger.info(f"[store.kuaishou.save_creator] creator:{local_db_item}")
+    await KuaishouStoreFactory.create_store().store_creator(local_db_item)

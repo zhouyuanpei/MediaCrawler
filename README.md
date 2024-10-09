@@ -7,123 +7,97 @@
 > 点击查看更为详细的免责声明。[点击跳转](#disclaimer)
 # 仓库描述
 
-**小红书爬虫**，**抖音爬虫**， **快手爬虫**， **B站爬虫**， **微博爬虫**...。  
-目前能抓取小红书、抖音、快手、B站、微博的视频、图片、评论、点赞、转发等信息。
+**小红书爬虫**，**抖音爬虫**， **快手爬虫**， **B站爬虫**， **微博爬虫**，**百度贴吧爬虫**，**知乎爬虫**...。  
+目前能抓取小红书、抖音、快手、B站、微博、贴吧、知乎等平台的公开信息。
 
 原理：利用[playwright](https://playwright.dev/)搭桥，保留登录成功后的上下文浏览器环境，通过执行JS表达式获取一些加密参数
-通过使用此方式，免去了复现核心加密JS代码，逆向难度大大降低  
+通过使用此方式，免去了复现核心加密JS代码，逆向难度大大降低
 
-我新开的爬虫教程Github仓库 [CrawlerTutorial](https://github.com/NanmiCoder/CrawlerTutorial) ，感兴趣的朋友可以关注一下，持续更新，主打一个免费.
+[MediaCrawlerPro](https://github.com/MediaCrawlerPro) 版本已经迭代出来了，相较于开源版本的优势：
+- 多账号+IP代理支持（重点！）
+- 去除Playwright依赖，使用更加简单
+- 支持linux部署（Docker docker-compose）
+- 代码重构优化，更加易读易维护（解耦JS签名逻辑）
+- 完美的架构设计，更加易扩展，源码学习的价值更大
 
-MediaCrawler视频教程课程已录制完结，包含入门教程使用、源码剖析、如何参与开源项目并贡献代码、wechatpayv3 SDK开源仓库代码贡献、MediaCrawlerPro重构技术方案...<br>
-抖音学浪课程链接：https://v.douyin.com/iYeQFyAf/ 
 
-## 感谢下列Sponsors对本仓库赞助
-<a href="https://sider.ai/ad-land-redirect?source=github&p1=mi&p2=kk">通过注册这个款免费的GPT助手，帮我获取GPT4额度作为支持。也是我每天在用的一款chrome AI助手插件</a>
-<a href="https://sider.ai/ad-land-redirect?source=github&p1=mi&p2=kk" target="_blank"><img src="https://s2.loli.net/2024/04/01/jK8drZ2bxTg67q9.png" ></a>
-
-成为赞助者，展示你的产品在这里，联系作者：relakkes@gmail.com
+MediaCrawler仓库白金赞助商:
+<a href="https://mangoproxy.com/?utm_source=mediacrawler&utm_medium=repository&utm_campaign=default">【MangoProxy】全球IP代理白金推荐，支持210+国家 [MangoProxy](https://mangoproxy.com/?utm_source=mediacrawler&utm_medium=repository&utm_campaign=default) </a>
 
 ## 功能列表
-| 平台  | Cookie 登录 | 二维码登录 | 手机号登录 | 关键词搜索 | 指定视频/帖子 ID 爬取 | 登录状态缓存 | 数据保存 | IP 代理池 | 滑块验证码 |
-|:---:|:---------:|:-----:|:-----:|:-----:|:-------------:|:------:|:----:|:------:|:-----:|
-| 小红书 |     ✅     |   ✅   | ✅     |   ✅   |       ✅       |   ✅    |  ✅   |   ✅    |   ✕   |
-| 抖音  |     ✅     |   ✅   | ✅     |   ✅   |       ✅       |   ✅    |  ✅   |   ✅    |   ✅   |
-| 快手  |     ✅     |   ✅   | ✕     |   ✅   |       ✅       |   ✅    |  ✅   |   ✅    |    ✕   |
-| B 站 |     ✅     |   ✅   | ✕     |   ✅   |       ✅       |   ✅    |  ✅   |   ✅    |   ✕   |
-| 微博  |     ✅      |   ✅    | ✕     |   ✅    |       ✅        |    ✅    |   ✅   |    ✅    |   ✕   |
+| 平台  | 关键词搜索 | 指定帖子ID爬取 | 二级评论 | 指定创作者主页 | 登录态缓存 | IP代理池 | 生成评论词云图 |
+|-----|-------|---------|-----|--------|-------|-------|-------|
+| 小红书 | ✅     | ✅       | ✅   | ✅      | ✅     | ✅     | ✅    |
+| 抖音  | ✅     | ✅       | ✅    | ✅       | ✅     | ✅     | ✅    |
+| 快手  | ✅     | ✅       | ✅   | ✅      | ✅     | ✅     | ✅    |
+| B 站 | ✅     | ✅       | ✅   | ✅      | ✅     | ✅     | ✅    |
+| 微博  | ✅     | ✅       | ✅   | ✅      | ✅     | ✅     | ✅    |
+| 贴吧  | ✅     | ✅       | ✅   | ✅      | ✅     | ✅     | ✅    |
+| 知乎  | ✅     |   ❌      | ✅   | ❌      | ✅     | ✅     | ✅    |
 
-## MediaCrawler爬虫项目交流群：
-> 7天有效期，自动更新
+## 开发者服务
+> 开源不易，希望大家可以Star一下MediaCrawler仓库、支持下我的课程、星球，十分感谢！！！ <br>
 
-<div style="max-width: 200px">  
-
-![img.png](static/images/3群二维码.jpg)
-
-</div>
-
-
-## 使用方法
-
-### 创建并激活 python 虚拟环境
-   ```shell   
-   # 进入项目根目录
-   cd MediaCrawler
+- MediaCrawler源码剖析课程：
+  如果你想很快入门这个项目，或者想了具体实现原理，我推荐你看看这个我录制的视频课程，从设计出发一步步带你如何使用，门槛大大降低
+  - **抖音课程链接**（仅支持安卓）：https://v.douyin.com/iYeQFyAf/ 
+  - **B站课程链接**：https://www.bilibili.com/cheese/play/ss16569 
    
-   # 创建虚拟环境
-   # 注意python 版本需要3.7 - 3.9 
-   python -m venv venv
-   
-   # macos & linux 激活虚拟环境
-   source venv/bin/activate
-
-   # windows 激活虚拟环境
-   venv\Scripts\activate
-
-   ```
-
-### 安装依赖库
-
-   ```shell
-   pip3 install -r requirements.txt
-   ```
-
-### 安装 playwright浏览器驱动
-
-   ```shell
-   playwright install
-   ```
-
-### 运行爬虫程序
-
-   ```shell
-   # 从配置文件中读取关键词搜索相关的帖子并爬去帖子信息与评论
-   python main.py --platform xhs --lt qrcode --type search
-   
-   # 从配置文件中读取指定的帖子ID列表获取指定帖子的信息与评论信息
-   python main.py --platform xhs --lt qrcode --type detail
+  (备注：课程介绍飞书文档链接：https://relakkes.feishu.cn/wiki/JUgBwdhIeiSbAwkFCLkciHdAnhh
+  <br>
+  <br>
   
-   # 打开对应APP扫二维码登录
-     
-   # 其他平台爬虫使用示例, 执行下面的命令查看
-   python main.py --help    
-   ```
+- 知识星球：MediaCrawler相关问题最佳实践、爬虫逆向分享、爬虫项目实战、多年编程经验分享、爬虫编程技术问题提问。
+  <p>
+  <img alt="xingqiu" src="docs/static/images/星球qrcode.jpg" style="width: auto;height: 400px" >
+  </p>
+  
+  星球精选文章(部分)：
+  - [逆向案例 - 某16x8平台商品列表接口逆向参数分析](https://articles.zsxq.com/id_x1qmtg8pzld9.html)
+  - [逆向案例 - Product Hunt月度最佳产品榜单接口加密参数分析](https://articles.zsxq.com/id_au4eich3x2sg.html)
+  - [逆向案例 - 某zhi乎x-zse-96参数分析过程](https://articles.zsxq.com/id_dui2vil0ag1l.html)
+  - [逆向案例 - 某x识星球X-Signature加密参数分析过程](https://articles.zsxq.com/id_pp4madwcwcg8.html)
+  - [【独创】使用Playwright获取某音a_bogus参数流程（包含加密参数分析）](https://articles.zsxq.com/id_u89al50jk9x0.html)
+  - [【独创】使用Playwright低成本获取某书X-s参数流程分析（当年的回忆录）](https://articles.zsxq.com/id_u4lcrvqakuc7.html)
+  - [ MediaCrawler-基于抽象类设计重构项目缓存](https://articles.zsxq.com/id_4ju73oxewt9j.html)
+  - [ 手把手带你撸一个自己的IP代理池](https://articles.zsxq.com/id_38fza371ladm.html) 
+  - [Python协程在并发场景下的幂等性问题](https://articles.zsxq.com/id_wocdwsfmfcmp.html)
+  - [错误使用 Python 可变类型带来的隐藏 Bug](https://articles.zsxq.com/id_f7vn89l1d303.html)
+
+## 使用教程文档
+ 
+> MediaCrawler文档使用vitepress构建，包含使用方法、常见问题、加入项目交流群等。
+> 
+[MediaCrawler在线文档](https://nanmicoder.github.io/MediaCrawler/)
 
 
-### 数据保存
-- 支持保存到关系型数据库（Mysql、PgSQL等）
-- 支持保存到csv中（data/目录下）
-- 支持保存到json中（data/目录下）
+## 感谢下列Sponsors对本仓库赞助
+- <a href="https://mangoproxy.com/?utm_source=mediacrawler&utm_medium=repository&utm_campaign=default">【MangoProxy】全球IP代理白金推荐，支持210+国家 [MangoProxy](https://mangoproxy.com/?utm_source=mediacrawler&utm_medium=repository&utm_campaign=default) </a>
+- <a href="https://sider.ai/ad-land-redirect?source=github&p1=mi&p2=kk">【Sider】全网最火的ChatGPT插件，我也免费薅羊毛用了快一年了，体验拉满。</a>
+
+成为赞助者，可以将您产品展示在这里，每天获得大量曝光，联系作者微信：yzglan
+
 
 ## 打赏
-免费开源不易，如果项目帮到你了，可以给我打赏哦，您的支持就是我最大的动力！
-<div style="display: flex;justify-content: space-between;width: 100%">
-    <p><img alt="打赏-微信" src="static/images/wechat_pay.jpeg" style="width: 200px;height: 100%" ></p>
-    <p><img alt="打赏-支付宝" src="static/images/zfb_pay.png"   style="width: 200px;height: 100%" ></p>
-</div>
+
+如果觉得项目不错的话可以打赏哦。您的支持就是我最大的动力！
+
+打赏时您可以备注名称，我会将您添加至打赏列表中。
+<p>
+  <img alt="打赏-微信" src="docs/static/images/wechat_pay.jpeg" style="width: 200px;margin-right: 140px;" />
+  <img alt="打赏-支付宝" src="docs/static/images/zfb_pay.png" style="width: 200px" />
+</p>
+
+查看打赏列表 [MediaCrawler捐赠名单](https://nanmicoder.github.io/MediaCrawler/捐赠名单.html)
 
 
-
-## 运行报错常见问题Q&A
-> 遇到问题先自行搜索解决下，现在AI很火，用ChatGPT大多情况下能解决你的问题 [免费的ChatGPT](https://sider.ai/ad-land-redirect?source=github&p1=mi&p2=kk)  
-
-➡️➡️➡️ [常见问题](docs/常见问题.md)
-
-
-## 项目代码结构
-➡️➡️➡️ [项目代码结构说明](docs/项目代码结构.md)
-
-## 手机号登录说明
-➡️➡️➡️ [手机号登录说明](docs/手机号登录说明.md)
-
-
+## 爬虫入门课程
+我新开的爬虫教程Github仓库 [CrawlerTutorial](https://github.com/NanmiCoder/CrawlerTutorial) ，感兴趣的朋友可以关注一下，持续更新，主打一个免费.
 
 ## star 趋势图
-- 如果该项目对你有帮助，star一下 ❤️❤️❤️
+- 如果该项目对你有帮助，帮忙 star一下 ❤️❤️❤️，让更多的人看到MediaCrawler这个项目
 
 [![Star History Chart](https://api.star-history.com/svg?repos=NanmiCoder/MediaCrawler&type=Date)](https://star-history.com/#NanmiCoder/MediaCrawler&Date)
-
-
 
 
 ## 参考
@@ -131,7 +105,6 @@ MediaCrawler视频教程课程已录制完结，包含入门教程使用、源�
 - xhs客户端 [ReaJason的xhs仓库](https://github.com/ReaJason/xhs)
 - 短信转发 [参考仓库](https://github.com/pppscn/SmsForwarder)
 - 内网穿透工具 [ngrok](https://ngrok.com/docs/)
-
 
 
 ## 免责声明
@@ -157,7 +130,8 @@ MediaCrawler视频教程课程已录制完结，包含入门教程使用、源�
 </div>
 
 
-
-
-
+### 感谢JetBrains提供的免费开源许可证支持
+<a href="https://www.jetbrains.com/?from=MediaCrawler">
+    <img src="https://www.jetbrains.com/company/brand/img/jetbrains_logo.png" width="100" alt="JetBrains" />
+</a>
 

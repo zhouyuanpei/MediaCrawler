@@ -4,6 +4,7 @@
 # @Desc    : 爬虫相关的工具函数
 
 import base64
+import json
 import random
 import re
 from io import BytesIO
@@ -37,6 +38,28 @@ async def find_login_qrcode(page: Page, selector: str) -> str:
     except Exception as e:
         print(e)
         return ""
+
+
+async def find_qrcode_img_from_canvas(page: Page, canvas_selector: str) -> str:
+    """
+    find qrcode image from canvas element
+    Args:
+        page:
+        canvas_selector:
+
+    Returns:
+
+    """
+
+    # 等待Canvas元素加载完成
+    canvas = await page.wait_for_selector(canvas_selector)
+
+    # 截取Canvas元素的截图
+    screenshot = await canvas.screenshot()
+
+    # 将截图转换为base64格式
+    base64_image = base64.b64encode(screenshot).decode('utf-8')
+    return base64_image
 
 
 def show_qrcode(qr_code) -> None:  # type: ignore
@@ -133,3 +156,28 @@ def match_interact_info_count(count_str: str) -> int:
         return int(number)
     else:
         return 0
+
+
+def format_proxy_info(ip_proxy_info) -> Tuple[Optional[Dict], Optional[Dict]]:
+    """format proxy info for playwright and httpx"""
+    playwright_proxy = {
+        "server": f"{ip_proxy_info.protocol}{ip_proxy_info.ip}:{ip_proxy_info.port}",
+        "username": ip_proxy_info.user,
+        "password": ip_proxy_info.password,
+    }
+    httpx_proxy = {
+        f"{ip_proxy_info.protocol}": f"http://{ip_proxy_info.user}:{ip_proxy_info.password}@{ip_proxy_info.ip}:{ip_proxy_info.port}"
+    }
+    return playwright_proxy, httpx_proxy
+
+
+def extract_text_from_html(html: str) -> str:
+    """Extract text from HTML, removing all tags."""
+    if not html:
+        return ""
+
+    # Remove script and style elements
+    clean_html = re.sub(r'<(script|style)[^>]*>.*?</\1>', '', html, flags=re.DOTALL)
+    # Remove all other tags
+    clean_text = re.sub(r'<[^>]+>', '', clean_html).strip()
+    return clean_text
